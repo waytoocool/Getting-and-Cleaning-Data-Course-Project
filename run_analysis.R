@@ -41,7 +41,7 @@ sub_Total <- rbind(sub_train, sub_test)
 
 XY_Total <- cbind(X_Total, Y_Total, sub_Total)
 
-# 2. Extracts only the measurements on the mean and standard deviation for each measurement.
+# 2. Extracts only the measurements on the mean and standard deviation for each measurement
 FilteredColumn <- grepl("\\bmean()\\b", names(XY_Total)) | grepl("\\bstd()\\b", names(XY_Total)) |  grepl("\\bSubject\\b", names(XY_Total)) | grepl("\\bActivityNumber\\b", names(XY_Total))
 XY_Total <- XY_Total[, ..FilteredColumn]
 
@@ -49,13 +49,14 @@ XY_Total <- XY_Total[, ..FilteredColumn]
 # Read the File with Activity names
 ActivityLabels <- fread(file.path(dataPath, "activity_labels.txt"), col.names = c("ActivityNumber", "ActivityName"))
 
-#3., 4. Uses descriptive activity names to name the activities in the data set
 
 
+# Reshape the database to convert the columns to variable
 Melted <- melt(XY_Total, c("Subject","ActivityNumber"))
-
+#4. Uses descriptive activity names to name the activities in the data set
 Melted$ActivityNumber <- factor(Melted$ActivityNumber, labels = ActivityLabels$ActivityName)
-
+#5. creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 Casted <- dcast(Melted, Subject + ActivityNumber ~ variable, mean)
 
+#Write Final Data set to a file 
 write.table(Casted, "tidy.txt", row.names = FALSE)
