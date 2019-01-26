@@ -93,9 +93,9 @@ There are Two group of elements present in the dataset
 
 ### Activity Labels 
 This describes the id used to identify the activities
-1=WALKING
-2=WALKING_UPSTAIRS
-3=WALKING_DOWNSTAIRS
-4=SITTING
-5=STANDING
+1=WALKING,
+2=WALKING_UPSTAIRS,
+3=WALKING_DOWNSTAIRS,
+4=SITTING,
+5=STANDING,
 6=LAYING
